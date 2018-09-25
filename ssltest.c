@@ -286,7 +286,7 @@ void Hmac_sha256toBase64(const byte * context,unsigned char length, byte *sig_ou
 	byte hash[SHA256_DIGEST_SIZE];
 	
 	//byte hash_out[44];
-	byte sig_length = 45;           // Ö»ÐèÊ¹ÓÃ44¸ö×Ö·û£¬¶àÒ»¸ö×ªÐÐ·ûºÅ
+	byte sig_length = 45;           // ????44???,???????
 
 	byte input[80];
 
@@ -311,7 +311,7 @@ unsigned int AddSignature(char *senddata,char * data)
 {
 	unsigned char text_length=0;
 	
-	byte hash_signature[45];                         // 44 ??¡Á?¡¤?¡ê?¡Á?o¨®¨°???¨º? ??DD
+	byte hash_signature[45];                         // 44 ??×?·???×?oóò???ê? ??DD
 	
 	time_t expiry_time =0;
 	unsigned char i_sig = 0;
@@ -325,7 +325,7 @@ unsigned int AddSignature(char *senddata,char * data)
 			if(i_k == 0)
 				i_sigstart = 0;
 		
-			if((!i_sigstart) && (memcmp(data + i_k, "sr=https", 8) == 0))   //   ¨¬T3yo¨®?¨²  2?¨ª¡ê?D?? ??o?¡Á¨º?¡ä
+			if((!i_sigstart) && (memcmp(data + i_k, "sr=https", 8) == 0))   //   ìT3yoó?ú  2?í??D?? ??o?×ê?'
 			{
 				memcpy(sas_1,data + i_k + 3,80);
 				get_state = 1;
@@ -445,7 +445,7 @@ unsigned int AddSignature(char *senddata,char * data)
 {
 	unsigned char text_length=0;
 	
-	byte hash_signature[45];                         // 44 ¸ö×Ö·û£¬×îºóÒ»¸öÊÇ »»ÐÐ
+	byte hash_signature[45];                         // 44 ???,????? ??
 	
 	time_t expiry_time =0;
 	unsigned char i_sig = 0;
@@ -458,7 +458,7 @@ unsigned int AddSignature(char *senddata,char * data)
 			if(i_k == 0)
 				i_sigstart = 0;
 		
-			if((!i_sigstart) && (memcmp(data + i_k, "sr=", 3) == 0))   //   ÌÞ³ýºóÆÚ  ²»Í£ÅÐ¶Ï ÏûºÄ×ÊÔ´
+			if((!i_sigstart) && (memcmp(data + i_k, "sr=", 3) == 0))   //   ????  ???? ????
 			{
 				memcpy(sas_1,data + i_k + 3,80);
 				get_state = 1;
@@ -714,7 +714,7 @@ static void my_ssl_task( void )
 					if(read_countout > READ_STDCOUNT)
 					{
 						//msleep(30);
-						my_sslState = MY_SSLFREESSL;                  // µ÷Õû
+						my_sslState = MY_SSLFREESSL;                  // ??
 					}
 					else
 						my_sslState = MY_SSLREAD;
@@ -732,11 +732,11 @@ static void my_ssl_task( void )
 				CYASSL*         ssl     = 0;
 				
 			
-				method=CyaTLSv1_client_method();//½¨Á¢SSLËùÓÃµÄmethod
+				method=CyaTLSv1_client_method();//??SSL???method
 				if (method == NULL)
 					HF_Debug(DEBUG_LEVEL_LOW, "unable to get method");
 
-				ctx = CyaSSL_CTX_new(method);//³õÊ¼»¯ÉÏÏÂÎÄÇé¾°
+				ctx = CyaSSL_CTX_new(method);//????????
 				if (ctx == NULL)
 				{
 					HF_Debug(DEBUG_LEVEL_LOW, "unable to get ctx");
@@ -744,9 +744,9 @@ static void my_ssl_task( void )
 					my_sslState = MY_SSLIDLE;
 					break;
 				}
-			/*	ÉèÖÃÑéÖ¤·½Ê½ SSL_VERIFY_NONE£º±íÊ¾²»ÑéÖ¤	*/
+			/*	?????? SSL_VERIFY_NONE:?????	*/
 				CyaSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);//disable verify certificates
-			//³õÊ¼»¯ssl	
+			//???ssl	
 				ssl = CyaSSL_new(ctx);
 				if (ssl == NULL)
 				{
@@ -774,7 +774,7 @@ static void my_ssl_task( void )
 					HF_Debug(DEBUG_LEVEL_LOW, "SSL_connect failed");
 				}
 			
-			//break;      connect ³É¹¦ºóÖ±½ÓÐ´
+			//break;      connect ??????
 			
 			case MY_SSLWRITE:
 				
@@ -806,7 +806,7 @@ static void my_ssl_task( void )
 					{
 						//  wait recv data  count or time?
 						
-						if(read_countout  == READ_STDCOUNT)      // ×îºóÒ»´Î¶ÁÈ¡Êý¾Ý²»Õý³£ Ôòµ÷Õû¶ÁÈ¡´ÎÊý
+						if(read_countout  == READ_STDCOUNT)      // ??????????? ???????
 							READ_STDCOUNT = 20;
 					}
 
@@ -835,7 +835,7 @@ static void my_ssl_task( void )
 			
 			break;
 			
-			case MY_SSLFREESSL://Í¨ÐÅ½áÊøºóÊÕÎ²¹¤×÷
+			case MY_SSLFREESSL://?????????
 				
 				CyaSSL_shutdown(ssl);
 				CyaSSL_free(ssl);
@@ -843,7 +843,7 @@ static void my_ssl_task( void )
 				my_sslState = MY_SSLFREECTX;
 			// break;  release to connect resource
 			
-			case MY_SSLFREECTX://Í¨ÐÅ½áÊøºóÊÕÎ²¹¤×÷
+			case MY_SSLFREECTX://?????????
 				
 				CyaSSL_CTX_free(ctx);
 				close(sockfd);
@@ -877,6 +877,8 @@ static void my_ssl_test(char *url, char *sendbuf, int sendnum)//a SSL test
 	CYASSL_CTX*     ctx     = 0;
 	CYASSL*         ssl     = 0;
 	int sockfd = -1;
+	struct timeval timeout;
+	fd_set readfds;
 	
 	method = CyaTLSv1_2_client_method();
 	if (method == NULL)
@@ -920,24 +922,40 @@ static void my_ssl_test(char *url, char *sendbuf, int sendnum)//a SSL test
 	if (CyaSSL_write(ssl, sendbuf, sendnum) != sendnum)
        	HF_Debug(DEBUG_LEVEL_LOW,"SSL_write failed");
 
-	int recvlen;
-	recvlen = CyaSSL_read(ssl, ssl_recvbuf, sizeof(ssl_recvbuf)-1);
+	int recvlen = 0;
+	int nfds;
+	FD_ZERO(&readfds);
+	FD_SET(sockfd,&readfds);
+	timeout.tv_sec = 1;
+	timeout.tv_usec = 0;
+	nfds = sockfd + 1;
+
+  recvlen = CyaSSL_read(ssl, ssl_recvbuf, sizeof(ssl_recvbuf)-1);
+		
 	if (recvlen > 0)
 	{
 		HF_Debug(DEBUG_LEVEL_LOW,"Server response: recv start %d----------------------------------------\n",recvlen);
 		CyaSSL_Debugging_OFF();
-		hfuart_send(HFUART0, ssl_recvbuf, recvlen,200);
-
-		/*
+		hfuart_send(HFUART0, ssl_recvbuf, recvlen,200); 
+		
+		int recvlen_;
+		
 		while (1) 
 		{
-			recvlen = CyaSSL_read(ssl, ssl_recvbuf, sizeof(ssl_recvbuf)-1);
-			if (recvlen > 0) 
-				hfuart_send(HFUART0, ssl_recvbuf, recvlen,1536);
+			nfds = select(nfds,&readfds,NULL,NULL,&timeout);
+			
+			if(nfds > 0){
+				recvlen_ += recvlen;
+				recvlen = CyaSSL_read(ssl, ssl_recvbuf + recvlen_, sizeof(ssl_recvbuf)-1);
+				
+				if (recvlen > 0) 
+					hfuart_send(HFUART0, ssl_recvbuf + recvlen_, recvlen,200);
+				else
+					break;
+			}
 			else
 				break;
 		}
-		*/
 		
 		CyaSSL_Debugging_ON();
 		HF_Debug(DEBUG_LEVEL_LOW,"\n---------------------------------------- recv End!\n");	
@@ -960,6 +978,30 @@ FREE_CTX:
 	ShowMemoryTracker();    //peek into how memory was used
 }
 #endif
+
+static USER_FUNC int get_manuf_id(pat_session_t s,int argc,char *argv[],char *rsp,int len)
+{
+	char oem_id[32] = "cubic_oaiq";
+	
+	if( 0 == argc )
+	{
+		hffile_userbin_read(0, oem_id, 100);	
+		sprintf(rsp, "%s=%s", rsp, oem_id);
+		return 0;
+	}
+	else if( 1 == argc )
+	{
+		if((strlen(argv[0]) > 1)&&(strlen(argv[0]) < 100))
+		{
+			hffile_userbin_write(0, argv[0], strlen(argv[0])+1);
+			return 0;
+		}
+		else
+			return -1;
+	}
+	else
+		return -1;		
+}
 
 static USER_FUNC int set_ssl_addr(pat_session_t s,int argc,char *argv[],char *rsp,int len)
 {
@@ -987,6 +1029,7 @@ static USER_FUNC int set_ssl_addr(pat_session_t s,int argc,char *argv[],char *rs
 const hfat_cmd_t user_define_at_cmds_table[]=
 {
 	{"SSLADDR", set_ssl_addr, "   AT+SSLADDR: Get/Set address for SSL.\r\n", NULL},//add a AT cmd for SSL
+	{"MANUFID", get_manuf_id, "   AT+MANUF: Get/Set Manufacture ID.\r\n", NULL},
 	{NULL,NULL,NULL,NULL} //the last item must be null
 };
 
@@ -1210,5 +1253,3 @@ int USER_FUNC app_main (void)
 
 }
 #endif
-
-
